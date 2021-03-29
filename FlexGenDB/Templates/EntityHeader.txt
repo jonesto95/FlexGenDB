@@ -1,0 +1,8 @@
+﻿using System;
+
+namespace FlexGenDb.Model.%_SCHEMA_%
+{
+	public class %_TABLE_%
+	{
+
+		public %_TABLE_%() { }

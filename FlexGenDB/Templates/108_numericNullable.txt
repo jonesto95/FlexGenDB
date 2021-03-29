@@ -1,0 +1,4 @@
+﻿
+		// %_COLUMN_% field
+
+		public decimal? %_COLUMN_%;

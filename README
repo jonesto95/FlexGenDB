@@ -1,0 +1,6 @@
+# FlexGenDB
+
+FlexGenDB is a highly-configurable all-in-one database tool that can:
+ - Run upgrade scripts against a SQL database
+ - Generate entity model code for any language
+ - Build the model code into a class library (certain languages)

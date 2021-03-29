@@ -1,0 +1,28 @@
+{
+  "Database": {
+    "ConnectionString": "Server=localhost;Trusted_Connection=True;initial catalog=master;",
+    "Database": "FlexGen"
+  },
+  "Logging": {
+    "Enabled": true,
+    "LogFile": "./Logs/FlexGenDB_<t>.LOG",
+    "LogLinePrefix": "[%T] - ",
+    "Verbose": true
+  },
+  "UpgradeScripts": {
+    "Enabled": true,
+    "ScriptDirectory": "./UpgradeScripts",
+    "ScriptFileRegex": ".*[.]sql$"
+  },
+  "CodeGeneration": {
+    "Enabled": true,
+    "TemplateDirectory": "./Templates",
+    "DatabaseSchemas": "*",
+    "OutputDirectory":  "./Output"
+  },
+  "CodeBuild": {
+    "Enabled": true,
+    "ProjectName": "FlexGenDb.%_DATABASE_%.%_SCHEMA_%",
+    "DeleteProjectFile": true
+  }
+}

@@ -1,0 +1,63 @@
+﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace FlexGenDb.Model.%_SCHEMA_%.Functions
+{
+	public static class DbFunctions
+	{
+		private static SqlConnection sqlConnection;
+
+		private static void BuildSqlConnection()
+		{
+			if(sqlConnection == null)
+			{
+				sqlConnection = new SqlConnection("%_CONNECTIONSTRING_%");
+				sqlConnection.Open();
+			}
+		}
+
+
+		private static string ToSqlString(this object input)
+        {
+            if (input == null)
+            {
+                return "NULL";
+            }
+            else if (input is string inputString)
+            {
+                inputString = inputString.Replace("'", "''");
+                return $"'{inputString}'";
+            }
+            else if (input is bool)
+            {
+                bool inputBool = (bool)input;
+                return (inputBool ? "1" : "0");
+            }
+            else if (input is bool?)
+            {
+                bool? inputBool = (bool?)input;
+                return (inputBool.Value ? "1" : "0");
+            }
+            else if (input is DateTime)
+            {
+                DateTime inputDate = (DateTime)input;
+                string result = inputDate.ToString("MM/dd/yyyy HH:mm:ss.fff");
+                return $"'{result}'";
+            }
+            else if (input is DateTime?)
+            {
+                DateTime? inputDate = (DateTime?)input;
+                string result = inputDate.Value.ToString("MM/dd/yyyy HH:mm:ss.fff");
+                return $"'{result}'";
+            }
+            else if (input is Guid)
+            {
+                return $"'{input}'";
+            }
+            else
+            {
+                return input.ToString();
+            }
+        }
+

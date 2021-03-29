@@ -1,0 +1,12 @@
+﻿		public static DataTable %_FUNCTION_%(%_FUNCTIONPARAMS_CSHARP_%)
+		{
+			DataTable result = new DataTable();
+			string sqlText = $"EXEC %_FUNCTION_%(%_FUNCTIONPARAMS_SQL_%)";
+			SqlCommand command = new SqlCommand(sqlText, sqlConnection);
+			using(var dataAdapter = new SqlDataAdapter(command))
+			{
+				dataAdapter.Fill(result);
+			}
+			return result;
+		}
+

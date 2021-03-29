@@ -1,0 +1,4 @@
+﻿
+		// %_COLUMN_% field
+
+		public string %_COLUMN_%;
