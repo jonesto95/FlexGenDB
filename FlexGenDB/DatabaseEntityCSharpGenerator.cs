@@ -34,6 +34,7 @@ namespace FlexGenDB
         {
             Logger.Log("Starting Database Entity Code Generator");
             LoadConfiguration();
+            CheckDatabase();
 
             foreach(string schema in Schemas)
             {
@@ -66,6 +67,21 @@ namespace FlexGenDB
             OutputDirectory = SessionConfiguration.EntityCodeOutputDirectory;
             Directory.CreateDirectory(OutputDirectory);
             Logger.LogVerbose($"Output directory: {OutputDirectory}");
+        }
+
+
+        private static void CheckDatabase()
+        {
+            string databaseQuery =
+                $"SELECT COUNT(*) FROM sys.databases WHERE [name] = '{Database}'";
+
+            var queryResults = SQLInterface.ExecuteQueryIntoDataTable(databaseQuery);
+            int count = (int)queryResults.Rows[0].ItemArray[0];
+            if(count == 0)
+            {
+                string createDatabase = $"CREATE DATABASE {Database}";
+                SQLInterface.ExecuteNonQuery(createDatabase);
+            }
         }
 
 
