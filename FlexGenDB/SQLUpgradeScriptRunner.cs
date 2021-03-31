@@ -26,7 +26,6 @@ namespace FlexGenDB
         {
             Logger.Log("Starting SQL Upgrade Script Runner");
             LoadConfiguration();
-            CheckDatabase();
             CheckSchemaForUpgradeTables();
             RenameScriptFiles();
             GetNewUpgradeScripts();
@@ -47,21 +46,6 @@ namespace FlexGenDB
             Logger.LogVerbose($"Upgrade file regex: {SessionConfiguration.UpgradeScriptFileRegex}");
             UpgradeScriptGuidMonikerPrefix = SessionConfiguration.UpgradeScriptTemplateGuidMonikerPrefix;
             Logger.LogVerbose($"Upgrade script guid moniker prerfix: {UpgradeScriptGuidMonikerPrefix}");
-        }
-
-
-        private static void CheckDatabase()
-        {
-            string databaseQuery =
-                $"SELECT COUNT(*) FROM sys.databases WHERE [name] = '{Database}'";
-
-            var queryResults = SQLInterface.ExecuteQueryIntoDataTable(databaseQuery);
-            int count = (int)queryResults.Rows[0].ItemArray[0];
-            if (count == 0)
-            {
-                string createDatabase = $"CREATE DATABASE [{Database}]";
-                SQLInterface.ExecuteNonQuery(createDatabase);
-            }
         }
 
 

@@ -177,6 +177,7 @@ namespace FlexGenDB
                     }
                 }
 
+                CheckDatabase();
                 if (DatabaseSchemas.Contains("*"))
                 {
                     string schemaQuery =
@@ -284,6 +285,21 @@ namespace FlexGenDB
 
             string verboseLogging = AppConfigReader.GetStringOrDefault("Logging", "Verbose");
             VerboseLogging = string.Equals(verboseLogging, "true", StringComparison.InvariantCultureIgnoreCase);
+        }
+
+
+        private static void CheckDatabase()
+        {
+            string databaseQuery =
+                $"SELECT COUNT(*) FROM sys.databases WHERE [name] = '{Database}'";
+
+            var queryResults = SQLInterface.ExecuteQueryIntoDataTable(databaseQuery);
+            int count = (int)queryResults.Rows[0].ItemArray[0];
+            if (count == 0)
+            {
+                string createDatabase = $"CREATE DATABASE [{Database}]";
+                SQLInterface.ExecuteNonQuery(createDatabase);
+            }
         }
 
 
