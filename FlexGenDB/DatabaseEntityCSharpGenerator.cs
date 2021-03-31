@@ -79,7 +79,7 @@ namespace FlexGenDB
             int count = (int)queryResults.Rows[0].ItemArray[0];
             if(count == 0)
             {
-                string createDatabase = $"CREATE DATABASE {Database}";
+                string createDatabase = $"CREATE DATABASE [{Database}]";
                 SQLInterface.ExecuteNonQuery(createDatabase);
             }
         }
