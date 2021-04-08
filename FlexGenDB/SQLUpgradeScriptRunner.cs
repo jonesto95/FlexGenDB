@@ -160,6 +160,7 @@ namespace FlexGenDB
 
             Logger.LogVerbose($"{NewUpgradeScripts.Count} new scripts found in directory");
             NewUpgradeScripts = NewUpgradeScripts
+                .OrderBy(e => int.Parse(e.Split('_')[0]))
                 .Select(e => Path.Combine(UpgradeScriptDirectory, e))
                 .ToList();
         }
